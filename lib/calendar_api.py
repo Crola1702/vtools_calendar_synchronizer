@@ -12,9 +12,8 @@ class CalendarAPI:
         "https://www.googleapis.com/auth/calendar.calendarlist",
     ]
 
-    CALENDAR_ID = os.getenv("CALENDAR_ID")
-
-    def __init__(self):
+    def __init__(self, calendar_id):
+        self.calendar_id = calendar_id
         self.creds = None
 
         if os.path.exists("token.json"):
@@ -40,14 +39,14 @@ class CalendarAPI:
 
     def get_all_events(self):
         try:
-            return self.service.events().list(calendarId=self.CALENDAR_ID).execute()['items']
+            return self.service.events().list(calendarId=self.calendar_id).execute()['items']
         except HttpError as error:
             print(f"An error occurred: {error}")
             raise error
 
     def get_event(self, event_id: str):
         try:
-            return self.service.events().get(calendarId=self.CALENDAR_ID, eventId=event_id).execute()
+            return self.service.events().get(calendarId=self.calendar_id, eventId=event_id).execute()
         except HttpError as error:
             if error.status_code == 404:
                 return None
@@ -74,21 +73,21 @@ class CalendarAPI:
 
     def add_event(self, event: Event):
         try:
-            self.service.events().insert(calendarId=self.CALENDAR_ID, body=event.to_calendar_event()).execute()
+            self.service.events().insert(calendarId=self.calendar_id, body=event.to_calendar_event()).execute()
         except HttpError as error:
             print(f"An error occurred: {error}")
             raise error
 
     def update_event(self, event: Event):
         try:
-            self.service.events().patch(calendarId=self.CALENDAR_ID, eventId=event.id, body=event.to_calendar_event()).execute()
+            self.service.events().patch(calendarId=self.calendar_id, eventId=event.id, body=event.to_calendar_event()).execute()
         except HttpError as error:
-            print(f"An error occurred {error}")
+            print(f"An error occurred: {error}")
             raise error
 
     def delete_event(self, event_id: str):
         try:
-            self.service.events().delete(calendarId=self.CALENDAR_ID, eventId=event_id).execute()
+            self.service.events().delete(calendarId=self.calendar_id, eventId=event_id).execute()
         except HttpError as error:
             print(f"An error occurred: {error}")
             raise error

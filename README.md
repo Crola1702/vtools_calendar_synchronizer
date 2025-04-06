@@ -28,12 +28,24 @@ This project synchronizes events from the IEEE vTools API to a Google Calendar. 
    git clone <repository-url>
    cd <repository-folder>
    ```
+2. **Build the Docker image**:
+   ```bash
+   docker build -t event-calendar-synchronizer .
+   ```
 
-2. **Set up Configuration**:
+3. **Run the Docker container**:
+   ```bash
+   docker run -it --rm event-calendar-synchronizer --calendar-id <calendar_id> --country-id <country_id>
+   ```
+
+You can also use an `.env` file to set up the environment variables for the Docker container.
+
+
+1. **Set up Configuration**:
    * Copy `.env.example` to `.env` 
    * Update `.env` file with your data
 
-3. **Build and run the Docker container**:
+2. **Run the Docker container**:
    ```bash
    docker build -t event-calendar-synchronizer .
    docker run -it --env-file=.env --rm event-calendar-synchronizer
@@ -53,7 +65,7 @@ This project synchronizes events from the IEEE vTools API to a Google Calendar. 
     source ./.venv/bin/activate
     pip install -r requirements.txt
     ```
-   
+
 3. **Set up Configuration**:
    * Copy `.env.example` to `.env` 
    * Update `.env` file with your data
@@ -62,10 +74,18 @@ This project synchronizes events from the IEEE vTools API to a Google Calendar. 
    * See [Python quickstart](https://developers.google.com/calendar/api/quickstart/python) to set up the Google Calendar API credentials.
    * Move the client secret JSON file to the project folder and rename it to `credentials.json`.
 
-5. **Run the script**: The first time you run the script, it will prompt you to authenticate with your Google account. This will generate a `token.json` file for future use.
-    ```bash
-    python main.py
-    ```
+5. **Run the script**: You can run the script using Python and adding extra arguments (you can use `--help` to see all the options):
+   ```bash
+   python main.py --calendar-id <calendar_id> --country-id <country_id>
+   ```
+
+> The first time you run the script, it will prompt you to authenticate with your Google account. This will generate a `token.json` file for future use.
+>     ```bash
+>     python main.py
+>     ```
+
+See
+
 # How It Works
 1. **Fetching Events**:
   * The script uses the IEEE vTools API to fetch a list of events.
