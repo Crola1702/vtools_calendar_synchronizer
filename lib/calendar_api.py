@@ -82,7 +82,7 @@ class CalendarAPI:
         try:
             self.service.events().patch(calendarId=self.calendar_id, eventId=event.id, body=event.to_calendar_event()).execute()
         except HttpError as error:
-            print(f"An error occurred {error}")
+            print(f"An error occurred: {error}")
             raise error
 
     def delete_event(self, event_id: str):

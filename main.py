@@ -30,7 +30,7 @@ print("Fetching events from vTools")
 events = vtf.get_events_by_country(country_id)
 print(f"{len(events)} Events fetched")
 
-print("Bootstraping CalendarAPI")
+print("Bootstrapping CalendarAPI")
 calendar = CalendarAPI(calendar_id)
 print("Bootstraped CalendarAPI")
 
