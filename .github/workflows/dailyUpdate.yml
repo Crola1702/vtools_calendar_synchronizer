@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       # Save TOKEN secret into token.json
       - name: Save TOKEN secret
-        run: echo "${{ secrets.TOKEN }}" > token.json
+        run: echo '${{ secrets.TOKEN }}' > token.json
       # Build and run Dockerfile with .env.colombia environment file
       - name: Build and run Docker container
         run: |
