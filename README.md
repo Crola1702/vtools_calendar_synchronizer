@@ -69,7 +69,7 @@ This project synchronizes events from the IEEE vTools API to a Google Calendar. 
 # How It Works
 1. **Fetching Events**:
   * The script uses the IEEE vTools API to fetch a list of events.
-  * Events are filtered by the country ID (Colombia's ID is 45).
+  * Events are filtered by the country code (Example: Colombia code is CO).
 
 2. **Event Synchronization**:
   * The script initializes the CalendarAPI class, which handles communication with the Google Calendar API.
@@ -82,22 +82,10 @@ This project synchronizes events from the IEEE vTools API to a Google Calendar. 
   * At the end of the synchronization process, the script prints a summary of the number of events added, updated, and unchanged.
 
 # Configuration
-**Country ID**: The country ID can be changed in the `main.py` file. The default country is Colombia (ID: 45).
-
-To look for country you can use the following command:
-```bash
-$ curl "https://events.vtools.ieee.org/RST/events/api/public/v5/countries/list" | jq '.data[] | select(.attributes.name == "Colombia") | .attributes | del(.states) | .'
-
-{
-  "id": 45,
-  "name": "Colombia",
-  "abbreviation": "CO"
-}
-```
-
-**Google Calendar ID**: The Google Calendar ID can be changed in the `calendar_api.py` file. The default calendar is the primary calendar of the authenticated user.
-
+* **Google Calendar ID**: The Google Calendar ID can be changed in the `calendar_api.py` file. The default calendar is the primary calendar of the authenticated user. 
 Replace this with the ID of the calendar you want to use. You can find the ID in the Google Calendar settings.
+* **Country Code**: The country Code can be changed in the `.env` file. Use ISO 3166-1 alpha-2 standard
+
 
 # File Structure
 ```plaintext
